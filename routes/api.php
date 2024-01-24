@@ -22,3 +22,5 @@ Route::resource('tasks', TodoController::class);
 
 // Route::get('tasks', [TodoController::class, 'index']);
 // Route::post('tasks', [TodoController::class, 'store']);
+
+Route::put('tasks/{task}/complete', [TodoController::class, 'complete'])->name('task.complete');
