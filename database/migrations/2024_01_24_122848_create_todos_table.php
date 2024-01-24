@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
+            $table->string('task');
+            $table->string('status');
+            $table->string('figure');
             $table->timestamps();
         });
     }
