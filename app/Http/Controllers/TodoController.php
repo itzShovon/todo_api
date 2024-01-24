@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTodoRequest;
 use App\Models\Todo;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTodoRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateTodoRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,8 +48,15 @@ class TodoController extends Controller
         $validator = Validator::make($request->all(), [
             'task' => 'required|string|max:191',
             'status' => 'required',
-            'figure' => 'nullable|string|max:191',
+            'figure' => 'nullable|image',
         ]);
+
+
+        if($request->file('figure')){
+            $path = $request->file('figure')->store('public/figures');
+            // $visibility = Storage::getVisibility($path);
+            // Storage::setVisibility($path, 'public');
+        }
 
         if($validator->fails()){
             return response()->json([
@@ -58,7 +67,8 @@ class TodoController extends Controller
             $tasks = Todo::create([
                 'task' => $request->task,
                 'status' => $request->status,
-                'figure' => $request->figure,
+
+                'figure' => $path,
             ]);
 
             if($tasks){
@@ -111,8 +121,9 @@ class TodoController extends Controller
         $validator = Validator::make($request->all(), [
             'task' => 'required|string|max:191',
             'status' => 'required',
-            'figure' => 'nullable|string|max:191',
+            'figure' => 'nullable|image',
         ]);
+
 
         if($validator->fails()){
             return response()->json([
@@ -122,11 +133,21 @@ class TodoController extends Controller
         } else{
             $task = Todo::find($id);
 
+            $path = $task->figure;
+
+            if($request->file('figure')){
+                $new_path = $request->file('figure')->store('public/figures');
+
+                Storage::delete($path);
+                $path = $new_path;
+            }
+
             $task->update([
                 'task' => $request->task,
                 'status' => $request->status,
-                'figure' => $request->figure,
+                'figure' => $path,
             ]);
+
 
             if($task){
                 return response()->json([
@@ -150,6 +171,7 @@ class TodoController extends Controller
         $task = Todo::find($id);
 
         if($task){
+            Storage::delete($task->figure);
             $task->delete();
 
             return response()->json([
