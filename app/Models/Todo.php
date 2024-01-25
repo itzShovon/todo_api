@@ -9,6 +9,8 @@ class Todo extends Model
 {
     use HasFactory;
 
+    // added table name and fillable methods
+
     protected $table = 'todos';
 
     protected $fillable = [

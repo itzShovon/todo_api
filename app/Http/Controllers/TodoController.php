@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreTodoRequest;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\UpdateTodoRequest;
 use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display available tasks which are retrived from the database
+     * If there is no task, then it'll return 404 error.
      */
     public function index()
     {
@@ -32,16 +30,16 @@ class TodoController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Check for validation and
+     * Checks for attached file which can be null.
+     * And stores image file to filesystem and task to database.
+     * Updated the function default parameter.
      */
     public function store(Request $request)
     {
@@ -86,7 +84,7 @@ class TodoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified task.
      */
     public function show($id)
     {
@@ -105,16 +103,14 @@ class TodoController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Todo $todo)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage and database.
+     * Updated the function default parameter.
      */
     public function update(Request $request, $id)
     {
@@ -187,6 +183,7 @@ class TodoController extends Controller
     }
 
     // Custom methods
+    // Complete will set status to complete if called.
     public function complete($id)
     {
         $task = Todo::find($id);

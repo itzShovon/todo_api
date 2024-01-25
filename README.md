@@ -1,5 +1,5 @@
 # Laravel To-Do List
-This is a simple to-do list application built with Laravel framework. The application allows users to create, view, edit, and delete tasks. The application is built using Laravel functionality like routing, controller model, etc.
+This is a simple to-do list application built with Laravel framework. The application allows users to create, view, edit, complete, and delete tasks. The application is built using Laravel functionality like routing, controller model, etc.
 
 # Work Procedure
 1. Created an empty project.
@@ -11,6 +11,8 @@ This is a simple to-do list application built with Laravel framework. The applic
 1. Updated user request limit.
 1. Published the project.
 1. Turned off app debug mode.
+1. Added minimum commented notes.
+1. Pushed the whole thing to github...
 
 # Installation
 1. Clone the repository to your local machine.
@@ -18,12 +20,10 @@ This is a simple to-do list application built with Laravel framework. The applic
 1. Create a new database and update the .env file with your database credentials.
 1. Run the migrations by running php artisan migrate.
 1. Start the development server by running php artisan serve.
+
 # Usage
-Open the application in your web browser.
-Create a new task by clicking on the “Add Task” button.
-View the list of tasks by clicking on the “View Tasks” button.
-Edit a task by clicking on the “Edit” button next to the task.
-Delete a task by clicking on the “Delete” button next to the task.
+Can use postman to make requests.
+
 # Contributing
 Contributions are welcome! Please feel free to submit a pull request.
 
