@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('task');
             $table->string('status');
-            $table->string('figure');
+            $table->string('figure')->nullable();
             $table->timestamps();
         });
     }
